@@ -1,25 +1,98 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import HomePage from "./Pages/HomePage/HomePage";
+import PostsPage from "./Pages/PostsPage/PostsPage";
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import DetailPage from "./Pages/PostsPage/DetailPage/DetailPage";
+import LoginPage from "./Pages/LoginPage/LoginPage";
+import ProfilePage from "./Pages/ProfilePage/ProfilePage";
+import './App.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const PATH = {
+    HOME: '/',
+    POSTS: '/posts',
+    PROFILE: '/profile',
+    LOGIN: '/login',
+};
+
+const routes = [
+    {
+        path: PATH.HOME,
+        element: (<HomePage />)
+    },
+    {
+        path: PATH.POSTS,
+        element: (<PostsPage />)
+    },
+    {
+        path: PATH.PROFILE,
+        element: (<ProfilePage />)
+    },
+    {
+        path: PATH.LOGIN,
+        element: (<LoginPage />)
+    }
+]
+
+const navbarItem = [
+    {
+        to: PATH.HOME,
+        title: 'Home'
+    },
+    {
+        to: PATH.POSTS,
+        title: 'Posts'
+    },
+    {
+        to: PATH.PROFILE,
+        title: 'Profile'
+    }
+]
+
+const App = () => {
+    const token = localStorage.getItem('token');
+
+    function onLogoutClicked() {
+        localStorage.setItem('token', '');
+        localStorage.setItem('userId', '');
+        window.location.reload();
+    }
+
+    return (
+        <div>
+            <BrowserRouter>
+                <ul>
+                    {navbarItem.map(item => (
+                        <li key={item.to} ><Link to={item.to}>{item.title}</Link></li>
+                    ))}
+                    {/* {islogin === false && <li ><button style={{ display: 'block' }}>Logout</button></li>} */}
+                    {!token ? (
+                        <li>
+                            <Link to="/login">Login</Link>
+                        </li>
+                    ) : (
+                        <li>
+                            <button onClick={onLogoutClicked} style={{ marginRight: '10px' }}>
+                                Logout
+                            </button>
+                        </li>
+                    )}
+                </ul>
+                <Routes>
+                    {routes.map(route => (
+                        <Route key={route.path} path={route.path} element={route.element} />
+                    ))}
+                    <Route path={`posts/:postId`} element={<DetailPage />} />
+                    <Route
+                        path="*"
+                        element={
+                            <main style={{ padding: "1rem" }}>
+                                <p>There's nothing here!</p>
+                            </main>
+                        }
+                    />
+                </Routes>
+            </BrowserRouter>
+        </div>
+    )
 }
-
 export default App;
