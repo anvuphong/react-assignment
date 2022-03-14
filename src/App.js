@@ -7,6 +7,7 @@ import LoginPage from "./Pages/LoginPage/LoginPage";
 import ProfilePage from "./Pages/ProfilePage/ProfilePage";
 import './App.css'
 
+
 const PATH = {
     HOME: '/',
     POSTS: '/posts',
@@ -62,21 +63,21 @@ const App = () => {
             <BrowserRouter>
                 <ul>
                     {navbarItem.map(item => (
-                        <li key={item.to} ><Link to={item.to}>{item.title}</Link></li>
+                        <li key={item.to} ><Link className="link" to={item.to}>{item.title}</Link></li>
                     ))}
-                    {/* {islogin === false && <li ><button style={{ display: 'block' }}>Logout</button></li>} */}
                     {!token ? (
-                        <li>
-                            <Link to="/login">Login</Link>
+                        <li  style={{float:"right"}}>
+                            <Link className="link" to="/login">Login</Link>
                         </li>
                     ) : (
-                        <li>
-                            <button onClick={onLogoutClicked} style={{ marginRight: '10px' }}>
+                        <li style={{float:"right"}}>
+                            <button className="link" onClick={onLogoutClicked}>
                                 Logout
                             </button>
                         </li>
                     )}
                 </ul>
+
                 <Routes>
                     {routes.map(route => (
                         <Route key={route.path} path={route.path} element={route.element} />

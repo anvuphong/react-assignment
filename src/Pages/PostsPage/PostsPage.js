@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import './PostPage.css';
 
 const PostsPage = () => {
     const [posts, setPosts] = useState([]);
@@ -68,12 +69,20 @@ const PostsPage = () => {
         <div style={{ color: 'red' }}>{error}</div>
     )
 
+    
+
+    const deleteHandle = (postId) => {
+        const postsAfterDeleted = posts.filter(post => post.id != postId);
+        setPosts(postsAfterDeleted);
+    }
+
     return (
-        <div>
+        <div style={{ overflow: "auto" }}>
             <input className="search-by-title"
                 placeholder="Search by title"
                 value={searchText}
                 onChange={(evt) => setSearchText(evt.target.value)} />
+
             <table className="posts-table">
                 <thead>
                     <tr>
@@ -86,9 +95,10 @@ const PostsPage = () => {
                     {postsSorted.map(post => (
                         <tr key={post.id}>
                             <td>{post.id}</td>
-                            <td>{post.title}</td>
+                            <td style={{ textAlign: "left" }}>{post.title}</td>
                             <td>
-                                <Link to={`/posts/${post.id}`}>View Detail</Link>
+                                <Link to={`/posts/${post.id}`} style={{ marginRight: '20px', textDecoration:'none' }}>View Detail</Link>
+                                <button onClick={() => deleteHandle(post.id)}>Delete</button>
                             </td>
                         </tr>
                     ))}

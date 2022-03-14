@@ -1,6 +1,8 @@
+import { Button, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import './LoginPage.css'
 
 const validateEmail = (email) => {
     if (!email) return 'Required!';
@@ -75,28 +77,30 @@ const LoginPage = () => {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input
+        <div >
+            <form className="login-form">
+                <TextField
                     name="email"
-                    stype={{ display: 'block', margin: '20px' }}
                     type='text'
-                    placeholder="Email"
                     onChange={handleInputChange}
                     onBlur={handleOnBlur}
+                    label="Email"
+                    variant="outlined"
+                    error={Boolean(error.email && touched.email)}
+                    helperText={error.email}
                 />
-                {touched.email && <p style={{ color: 'red' }}>{error.email}</p>}
                 <p />
-                <input
+                <TextField
                     name="password"
-                    stype={{ display: 'block', margin: '20px' }}
                     type='password'
-                    placeholder="Password"
                     onChange={handleInputChange}
                     onBlur={handleOnBlur}
+                    label="Password"
+                    variant="outlined"
+                    error={Boolean(error.password && touched.password)}
+                    helperText={error.password}
                 />
-                {touched.password && <p style={{ color: 'red' }}>{error.password}</p>}
-                <button disabled={isValidForm} style={{ display: 'block', margin: '20px' }}>Submit</button>
+                <Button onClick={handleSubmit} variant="contained" disabled={isValidForm} style={{ display: 'block', margin: '20px' }}>Login</Button>
             </form>
         </div>
     )

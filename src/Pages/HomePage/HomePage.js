@@ -2,8 +2,8 @@ import React from "react";
 
 const HomePage = () => {
     return (
-        <div>
-            HomePage
+        <div >
+            <h3 style={{textAlign:"center"}}>HomePage</h3>
         </div>
     )
 

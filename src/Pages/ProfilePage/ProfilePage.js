@@ -31,7 +31,7 @@ const ProfilePage = () => {
     </div>
   ) : (
     <div>
-      <b>You need to login to continue</b>
+      <p>You need to login to continue</p>
       <LoginPage />
     </div>
   );

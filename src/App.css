@@ -1,10 +1,33 @@
 ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: rgba(23, 190, 113, 0.616);
 }
 
 li {
-    margin: 20px;
-    display: inline-block;
+  display: inline-block;
+  border-right: 1px solid #bbb;
+  text-align: center;
+  padding: 0;
+  text-decoration: none;
 }
+
+li:last-child {
+  border-right: none;
+}
+
+.link{
+  text-decoration: none;
+  display: inline-block;
+  border: 2px;
+  padding: 14px 16px;
+}
+
+.link:hover, .link:active{
+  text-decoration: underline;
+}
+
+/* Link:hover, Link:active {
+  background-color: red;
+} */
