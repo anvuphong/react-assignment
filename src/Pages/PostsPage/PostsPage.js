@@ -72,7 +72,7 @@ const PostsPage = () => {
     
 
     const deleteHandle = (postId) => {
-        const postsAfterDeleted = posts.filter(post => post.id != postId);
+        const postsAfterDeleted = posts.filter(post => post.id !== postId);
         setPosts(postsAfterDeleted);
     }
 
